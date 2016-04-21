@@ -1,4 +1,7 @@
-    <div class='form-group'>  
+<!-- Temporary -->
+{{ Form::hidden('user_id', 1) }}
+
+<div class='form-group'>  
         {{ Form::label('title', 'Name') }}
         {{ Form::text('title', null, ['class' => 'form-control']) }}
     </div>  
