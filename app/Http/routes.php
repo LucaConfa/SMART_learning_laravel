@@ -15,4 +15,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('contact', 'PagesController@contact');
 
     Route::resource('articles', 'ArticlesController');
+    
+    Route::controllers([
+        'auth' => 'Auth\AuthController',
+        'password' => 'Auth\PasswordController',
+    ]);
+    Route::auth();
 });
+
+

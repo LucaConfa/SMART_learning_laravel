@@ -12,6 +12,11 @@ class ArticlesController extends Controller
 {
     public function index() 
     {
+//        $user = \Auth::user();
+//        dd($user);
+        return \Auth::user();
+        
+        
         $articles = Article::latest('published_at')->published()->get();
         
         return view("articles.index", compact('articles'));
