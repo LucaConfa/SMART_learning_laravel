@@ -13,6 +13,7 @@
 Route::group(['middleware' => ['web']], function () {
     Route::get('about', 'PagesController@about');
     Route::get('contact', 'PagesController@contact');
+    Route::get('auth/logout', 'Auth\AuthController@logout');
 
     Route::resource('articles', 'ArticlesController');
     

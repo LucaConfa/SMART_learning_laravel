@@ -12,11 +12,7 @@ class ArticlesController extends Controller
 {
     public function index() 
     {
-//        $user = \Auth::user();
-//        dd($user);
-        return \Auth::user();
-        
-        
+
         $articles = Article::latest('published_at')->published()->get();
         
         return view("articles.index", compact('articles'));
@@ -45,8 +41,10 @@ class ArticlesController extends Controller
     public function store(Requests\ArticleRequest $request)
     {
         //Unless validation pass the code below will never be fired
-        Article::create($request->all());
+        $article = new Article($request->all());
         
+        \Auth::user()->articles()->save($article);
+
         return redirect('articles');
     }
     
