@@ -33,4 +33,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Article');
     }
+    
+    /**
+     * just a test method for RedirectifnotaManager
+     * @return boolean
+     */
+    public function isATeamManager()
+    {
+        return false;
+    }
 }

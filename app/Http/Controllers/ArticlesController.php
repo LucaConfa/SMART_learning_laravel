@@ -10,14 +10,29 @@ use App\Http\Requests;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>'index']);
+    }
+    
+    /**
+     * Show all articles
+     * 
+     * @return Response
+     */
     public function index() 
     {
-
         $articles = Article::latest('published_at')->published()->get();
         
         return view("articles.index", compact('articles'));
     }
     
+    /**
+     * Show a single aritcle
+     * 
+     * @param type $id
+     * @return Response
+     */
     public function show($id) 
     {
         $article = Article::findOrFail($id);
@@ -25,8 +40,9 @@ class ArticlesController extends Controller
     }
     
     /**
-     *  
-     * @return type
+     * Show the page to create an article
+     * we need to make this page accessible only by registered users
+     * @return Response
      */
     public function create() 
     {
@@ -34,6 +50,7 @@ class ArticlesController extends Controller
     }
     
     /**
+     * Save a new article
      * 
      * @param \App\Http\Requests\CreateArticleRequest $request
      * @return type

@@ -22,6 +22,9 @@ Route::group(['middleware' => ['web']], function () {
         'password' => 'Auth\PasswordController',
     ]);
     Route::auth();
+    Route::get('foo', ['middleware'=> ['manager'], function()
+    {
+        return 'This page may only be viewed by team managers';
+    }]);
 });
-
 
