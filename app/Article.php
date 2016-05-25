@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     /**
-     *  Fillable fields
+     *  Fillable fields being specific about which fileds might be mass assigned
      * @var array
      */
     protected $fillable = [
@@ -19,13 +19,15 @@ class Article extends Model
     ];
     /**
      * fields to be treated as Carbon instances
+     * so we can treat it as a Carbon object: $article->published_at->format('Y-m-d')
      * @var type 
      */
-    protected $dates =['published_at'];
+    protected $dates =['published_at']; 
 
     
     /**
-     * set published_at attribute (mutator)
+     * set published_at attribute (mutator) 
+     * every time we do $article->published_at Laravel will call the mutator and parse the date.
      * @param type $date
      */
     public function setPublishedAtAttribute($date)
@@ -36,6 +38,8 @@ class Article extends Model
     
     /**
      * Scope queries to articles that have been published
+     * Prevent us to reapating all the time the clause. We can do Article::published() 
+     * and we'll get the aricles already filtered
      * @param type $query
      */
     public function scopePublished($query)
@@ -55,7 +59,7 @@ class Article extends Model
     
     /**
      * An article is owned by a user  (name of method is customizable)
-     * 
+     * We can do: $article->user we'll get a user object that is associated with the aritcle
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() 
