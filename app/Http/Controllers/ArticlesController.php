@@ -45,7 +45,8 @@ class ArticlesController extends Controller
      */
     public function create() 
     {
-        return view("articles.create");
+        $tags = \App\Tag::lists('name', 'id');
+        return view("articles.create", compact('tags'));
     }
     
     /**
@@ -60,6 +61,8 @@ class ArticlesController extends Controller
         $article = new Article($request->all());
         
         \Auth::user()->articles()->save($article);
+        
+        $article->tags()->attach($request->input('tags'));
             
         flash()->success('Your article has been created');
         return redirect('articles');

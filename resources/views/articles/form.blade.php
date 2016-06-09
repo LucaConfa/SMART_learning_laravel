@@ -15,6 +15,13 @@
         {{ Form::label('published_at', 'Published On') }}
         {{ Form::input('date','published_at', date('Y-m-d'), ['class' => 'form-control']) }}
     </div>
+
+    <!-- Tags Form Input -->
+    <div class='form-group'>
+        {{ Form::label('tags', 'Tags:') }}
+        {{ Form::select('tags[]', $tags, null, ['class' => 'form-control', 'multiple']) }}
+    </div>
+    
     
     <div class='form-group'>
         {{ Form::label('body', 'Body') }}
