@@ -97,7 +97,7 @@ class ArticlesController extends Controller
      * @param \App\Http\Controllers\ArticleRequest $request
      * @return Article
      */
-    private function createArticle(ArticleRequest $request)
+    private function createArticle(Requests\ArticleRequest $request)
     {
         $article = new Article($request->all());
         
