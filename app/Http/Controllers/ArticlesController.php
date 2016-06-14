@@ -58,11 +58,7 @@ class ArticlesController extends Controller
     public function store(Requests\ArticleRequest $request)
     {
         //Unless validation pass the code below will never be fired
-        $article = new Article($request->all());
-        
-        \Auth::user()->articles()->save($article);
-        
-        $article->tags()->attach($request->input('tags'));
+        $this->createArticle($request);
             
         flash()->success('Your article has been created');
         return redirect('articles');
@@ -71,7 +67,9 @@ class ArticlesController extends Controller
     
     public function edit(Article $article) 
     {
-        return view('articles.edit', compact('article'));
+        $tags = \App\Tag::lists('name', 'id');
+
+        return view('articles.edit', compact('article', 'tags'));
     }
     
     
@@ -79,6 +77,34 @@ class ArticlesController extends Controller
     {
         $article->update($request->all());
         
+        $this->syncTags($article, $request->input('tag_list'));
+        
         return redirect('articles');
+    }
+    
+    /**
+     * Sync up the list of tags in the database
+     * @param Article $article
+     * @param array $tags
+     */
+    private function syncTags(Article $article, array $tags)
+    {
+        $article->tags()->sync($tags);
+    }
+    
+    /**
+     * Save a new article
+     * @param \App\Http\Controllers\ArticleRequest $request
+     * @return Article
+     */
+    private function createArticle(ArticleRequest $request)
+    {
+        $article = new Article($request->all());
+        
+        \Auth::user()->articles()->save($article);
+        
+        $this->syncTags($article, $request->input('tag_list'));
+        
+        return $article;
     }
 }
