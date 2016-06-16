@@ -2,13 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <title>About</title>
-        <link rel="stylesheet" href="../css/all.css">
+        <link rel="stylesheet" href="/laravel-02/public/css/all.css">
 
-        <script src="../js/all.js"></script>
+        <script src="/laravel-02/public/js/all.js"></script>
     </head>
     
     <body>
-        <div class='containter' style='margin: 10px;'>
+        @include('partials.nav')
+        <div class='container' style='margin: 10px;'>
             @include('flash::message')
             
             @yield('content') 
