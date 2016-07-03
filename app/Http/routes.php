@@ -26,5 +26,7 @@ Route::group(['middleware' => ['web']], function () {
     {
         return 'This page may only be viewed by team managers';
     }]);
+    
+    Route::get('tags/{tags}', 'TagsController@show');
 });
 
